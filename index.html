@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام إدارة الطلاب - التقرير</title>
+</head>
+<body>
+    <h1>نظام إدارة الطلاب</h1>
+    <p>افتح الـ Console لرؤية النتائج (F12 -> Console)</p>
+
+    <script>
+        // 1. مصفوفة الطلاب
+        const students = [
+            { id: 1, name: "فريدة", score: 88.33 },
+            { id: 2, name: "محمد", score: 71.67 },
+            { id: 3, name: "محمود", score: 45.00 },
+            { id: 4, name: "آية", score: 41.67 }
+        ];
+
+        // دالة تحديد التقدير والنتيجة
+        function getGradeAndStatus(score) {
+            let grade = 'F';
+            let status = 'يحتاج مراجعة';
+
+            if (score >= 85) { grade = 'A'; status = 'ناجح'; }
+            else if (score >= 75) { grade = 'B'; status = 'ناجح'; }
+            else if (score >= 65) { grade = 'C'; status = 'ناجح'; }
+            else if (score >= 50) { grade = 'D'; status = 'ناجح'; }
+
+            return { grade, status };
+        }
+
+        // 2. طباعة تقرير جميع الطلاب
+        console.log("===== تقرير جميع الطلاب =====");
+        students.forEach(student => {
+            const { grade, status } = getGradeAndStatus(student.score);
+            console.log(`ID: ${student.id} | تقدير : ${grade} | متوسط : ${student.score.toFixed(2)} | ${student.name} : نتيجة : ${status}`);
+        });
+
+        // 3. تصفية الطلاب المتعثرين (أقل من 50)
+        const struggling = students.filter(s => s.score < 50);
+        console.log("===== المتعثرون (40-49) =====", struggling);
+
+        // 4. تعديل درجات المتعثرين (إضافة درجة مرافقة/رأفة)
+        console.log("===== بعد الرأفة =====");
+        let sumAfterBonus = 0;
+        
+        struggling.forEach(s => {
+            let newScore = s.score + 9.13; // مثال لإضافة درجات
+            let status = newScore >= 50 ? "ناجح" : "يحتاج مراجعة";
+            console.log(`${s.name} | جديد : ${newScore.toFixed(2)} | ${status}`);
+            sumAfterBonus += newScore;
+        });
+
+        // 5. حساب متوسط المتعثرين بعد التعديل
+        const avgStruggling = sumAfterBonus / struggling.length;
+        console.log(`متوسط المتعثرين بعد التعديل: ${avgStruggling.toFixed(2)}`);
+    </script>
+</body>
+</html>
