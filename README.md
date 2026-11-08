@@ -1,0 +1,2 @@
+# thuraya
+data thuraya
